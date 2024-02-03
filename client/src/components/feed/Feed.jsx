@@ -13,11 +13,11 @@ export default function Feed({ username }) {
     const fetchPosts = async () => {
       const res = username
         ? await axios.get("/posts/profile/" + username)
-        : await axios.get("posts/timeline/65bcae54f642b46e2e550c22");
+        : await axios.get("posts/timeline/65bc9faee59b8f8b1d8da577");
       setPosts(res.data)
     };
     fetchPosts();
-  }, []);
+  }, [username]);
 
   return (
     <div className="feed">

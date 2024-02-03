@@ -27,7 +27,7 @@ router.put("/:id", async (req, res) => {
       return res.status(403).json("You can update only your account!");
     }
   });
-  
+
 
   //delete user
 
@@ -44,7 +44,7 @@ router.delete("/:id", async (req, res) => {
       return res.status(403).json("You can delete only your account!");
     }
   });
-  
+
 
 //   get a user
 router.get("/:id",async (req,res)=>{
@@ -101,7 +101,7 @@ router.put("/:id/follow", async (req, res) => {
       res.status(403).json("you cant follow yourself");
     }
   });
-  
+
 
 // unfollow a user
 
