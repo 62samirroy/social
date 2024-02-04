@@ -1,5 +1,5 @@
-const router=require("express").Router();
-const User=require("../models/User")
+const router = require("express").Router();
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 //REGISTER
@@ -20,26 +20,23 @@ router.post("/register", async (req, res) => {
     const user = await newUser.save();
     res.status(200).json(user);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error" }); // Send error response
+    res.status(500).json(err)
   }
 });
 
+//LOGIN
+router.post("/login", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    !user && res.status(404).json("user not found");
 
-router.post("/login",async(req,res)=>{
-    try{
-        const user=await User.findOne({email:req.body.email})
-        !user && res.status(404).json("user nor found")
-       const validPassword=await bcrypt.compare(req.body.password,user.password)
-       !validPassword && res.status(400).json("worng password")
-        res.status(200).json(user)
+    const validPassword = await bcrypt.compare(req.body.password, user.password)
+    !validPassword && res.status(400).json("wrong password")
 
-    }catch(err){
-        console.error(err);
-        res.status(500).json({ error: "Internal server error" }); // Send error response
-    }
-})
+    res.status(200).json(user)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+});
 
-
-
-module.exports=router
+module.exports = router;
